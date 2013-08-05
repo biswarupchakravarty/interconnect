@@ -212,7 +212,7 @@
    <div class="row-fluid">
      <div class="hero-unit">
        <h1>&larr; &rarr;</h1>
-       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+       <p>Interconnect is a project management application that makes project lifecycles easier. Its user friendly interface helps developers and managers get a clear picture of their position. It also comes with a unique gamification feature which can make developers want to work twice as hard.</p>
          <div class="pull-right">
            <button class="btn btn-success btn-large">Login</button>
            <button class="btn btn-info btn-large">Sign Up</button>
@@ -221,7 +221,7 @@
    </div>
    <div class="row-fluid" style="margin-top: 100px; text-align: right;">
      <div class="span12">
-       Powered by Bournvita and Backaches.
+       Powered by Appacitive Software Pvt. Ltd.
      </div>
    </div>
   </script>
@@ -612,6 +612,9 @@
       </div>
       <hr>
       <h4 style="margin-bottom: 30px;">Discussion</h4>
+      <div class="input-group span6">
+        <input type="text" style="width:100%;" id="AddComment" placeholder="Add Comments Here">
+      </div>
       {{#comments}}
         <div class="media" style="padding: 7px; cursor: pointer;">
           <a class="pull-left" href="javascript: void(0)">
@@ -625,8 +628,9 @@
             <small class="muted">{{dateDisplay}}</small><br>
             <small>{{description}}</small>
           </div>
-        </div>
+        
       {{/comments}}
+  
     {{/task}}
   </script>
   <script type="text/template" id="tmplEditProfile">
