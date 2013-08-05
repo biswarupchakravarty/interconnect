@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <link href="css/docs.css" rel="stylesheet" media="screen">
+    <link href="css/custom.css" rel="stylesheet" media="screen">
+    <link href="css/datepicker.css" rel="stylesheet" media="screen">
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript" src="//connect.facebook.net/en_US/all.js"></script>
+    <script src="js/jquery.masonry.min.js"></script>
+    <script src="js/utils.lzw.js"></script>
+    <script src="js/appacitive.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/mustache.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="js/index2.js"></script>
+
+    <script src="js/underscore.js"></script>
+    <script src="js/backbone.js"></script>
+    
+    <script src="js/alerts.js"></script>
+    <script src="js/homepage.js"></script>
+    <script src="js/createProject.js"></script>
+    <script src="js/createSprint.js"></script>
+    <script src="js/userListing.js"></script>
+    <script src="js/acceptInvite.js"></script>
+    <script src="js/currentSprints.js"></script>
+    <script src="js/pastSprints.js"></script>
+    <script src="js/sprintDetails.js"></script>
+    <script src="js/taskDetails.js"></script>
+    <script src="js/addTask.js"></script>
+    <script src="js/userSignup.js"></script>
+    <script src="js/userProfile.js"></script>
+    <script src="js/administer.js"></script>
+    <script src="js/messages.js"></script>
+  </head>
+  
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="./index.html">Interconnect</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active hide">
+                <a href="./components.html">Home</a>
+              </li>
+            </ul>
+            <ul class="nav pull-right" style="display: none" id="ulLoggedInUser">
+              <li class="active">
+                <a href="javascript: void(0)">
+                  <img id="imgFbPP" class="pull-left" style="width: 32px; height: 32px; margin-top: -5px; margin-right: 10px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACDUlEQVR4Xu2Yz6/BQBDHpxoEcfTjVBVx4yjEv+/EQdwa14pTE04OBO+92WSavqoXOuFp+u1JY3d29rvfmQ9r7Xa7L8rxY0EAOAAlgB6Q4x5IaIKgACgACoACoECOFQAGgUFgEBgEBnMMAfwZAgaBQWAQGAQGgcEcK6DG4Pl8ptlsRpfLxcjYarVoOBz+knSz2dB6vU78Lkn7V8S8d8YqAa7XK83ncyoUCjQej2m5XNIPVmkwGFC73TZrypjD4fCQAK+I+ZfBVQLwZlerFXU6Her1eonreJ5HQRAQn2qj0TDukHm1Ws0Ix2O2260RrlQqpYqZtopVAoi1y+UyHY9Hk0O32w3FkI06jkO+74cC8Dh2y36/p8lkQovFgqrVqhFDEzONCCoB5OSk7qMl0Gw2w/Lo9/vmVMUBnGi0zi3Loul0SpVKJXRDmphvF0BOS049+n46nW5sHRVAXMAuiTZObcxnRVA5IN4DJHnXdU3dc+OLP/V63Vhd5haLRVM+0jg1MZ/dPI9XCZDUsbmuxc6SkGxKHCDzGJ2j0cj0A/7Mwti2fUOWR2Km2bxagHgt83sUgfcEkN4RLx0phfjvgEdi/psAaRf+lHmqEviUTWjygAC4EcKNEG6EcCOk6aJZnwsKgAKgACgACmS9k2vyBwVAAVAAFAAFNF0063NBAVAAFAAFQIGsd3JN/qBA3inwDTUHcp+19ttaAAAAAElFTkSuQmCC">
+                  <span id="lblLoggedInUserName"></span>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav pull-right" style="display: 1none;" id="ulAnnonymousUser">
+              <li class="active">
+                <a href="javascript: void(0)" id="lnkSigupWithFacebook">
+                    <img class="pull-left" style="width: 32px; height: 32px; margin-top: -5px; margin-right: 10px;" src="data:image/png;base64,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" />
+                  <strong>Log In With Facebook</strong>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="talc-sheet hide">
+          <div class="progress progress-striped active" style="margin-top: 40px;">
+            <div class="bar global-loader" style="width: 100%; text-align: center;">
+              loading...
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span3">
+          <ul class="nav nav-list bs-docs-sidenav project-menu main-menu hide">
+            <li data-subsection="true">
+              <a href="javascript:void(0)" id=""><i class="icon-chevron-right"></i> <i class="icon-home"></i> <span>Get started!</span>
+              </a>
+            </li>
+            <li class="subsection">
+              <a href="javascript:void(0)" id="lnkCreateProject"><i class="icon-plus"></i> Create project
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-list bs-docs-sidenav main-menu hide nav-options actions-menu">
+            <li id="userListingMenuItem">
+              <a href="javascript:void(0)" id="userListing"><i class="icon-chevron-right"></i> <i class="icon-user"></i> Leaderboard
+                <span class="badge badge-inverse" id="badgeUsers">12</span>
+              </a>
+            </li>
+            <li id="currentSprintsMenuItem">
+              <a href="javascript:void(0)" id="currentSprints"><i class="icon-chevron-right"></i> <i class="icon-edit"></i> Current Sprints
+                <span class="badge badge-inverse" id="badgeCurrentSprints">6</span>
+              </a>
+            </li>
+            <li id="pastSprintsMenuItem">
+              <a href="javascript:void(0)" id="pastSprints"><i class="icon-chevron-right"></i> <i class="icon-check"></i> Past Sprints
+                <span class="badge badge-inverse" id="badgePastSprints">21</span>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" id="lnkMessages"><i class="icon-chevron-right"></i> <i class="icon-envelope"></i> Messages
+                <span class="badge badge-inverse">2</span>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" id="lnkAdminister"><i class="icon-chevron-right"></i> <i class="icon-cog"></i> Administer Organization</a>
+            </li>
+            <li id="editProfileMenuItem">
+              <a href="javascript:void(0)"><i class="icon-chevron-right"></i> <i class="icon-pencil"></i> My Profile</a>
+            </li>
+          </ul>
+          <ul class="nav nav-list bs-docs-sidenav menu-back hide">
+            <li id="lnkBack">
+              <a href="javascript:void(0)" id="back"><i class="icon-chevron-left"></i> <span id="lblMenuBackContents">Back</span>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-list bs-docs-sidenav sprint-details-menu hide nav-options">
+            <li id="lnkAddCardToSprint">
+              <a href="javascript:void(0)" id=""><i class="icon-chevron-right"></i> <i class="icon-user"></i> Add Card
+              </a>
+            </li>
+            <li id="">
+              <a href="javascript:void(0)" id="currentSprints"><i class="icon-chevron-right"></i> <i class="icon-edit"></i> Add Section
+              </a>
+            </li>
+            <li id="">
+              <a href="javascript:void(0)" id=""><i class="icon-chevron-right"></i> <i class="icon-check"></i> Prioritize
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)"><i class="icon-chevron-right"></i> <i class="icon-cog"></i> Settings</a>
+            </li>
+          </ul>
+          <ul class="nav nav-list bs-docs-sidenav task-details-menu hide nav-options">
+            <li id="lnkAddCardToSprint">
+              <a href="javascript:void(0)" id=""><i class="icon-chevron-right"></i> <i class="icon-user"></i> Add Card
+              </a>
+            </li>
+            <li id="">
+              <a href="javascript:void(0)" id="currentSprints"><i class="icon-chevron-right"></i> <i class="icon-edit"></i> Add Section
+              </a>
+            </li>
+            <li id="">
+              <a href="javascript:void(0)" id=""><i class="icon-chevron-right"></i> <i class="icon-check"></i> Prioritize
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)"><i class="icon-chevron-right"></i> <i class="icon-cog"></i> Settings</a>
+            </li>
+          </ul>
+        </div>
+        <div class="span9 content-container">
+          
+        </div>
+      </div>
+    </div>
+    <div id="inviteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        <h3>Invite User</h3>
+      </div>
+      <div class="modal-body">
+        <div class="input-prepend">
+          <span class="add-on">@</span>
+          <input class="span4" id="txtInviteEmail" type="text" placeholder="email address">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary" id="btnModalSendInvite" data-dismiss="modal">Invite</button>
+      </div>
+    </div>
+    <div id="userModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        <h3 id="userModalHeader"></h3>
+      </div>
+      <div class="modal-body">
+        <p id="userModalDetails"></p>
+        User Type: 
+        <div class="btn-group" data-toggle="buttons-radio" id="divUserModesContainer">
+          <button type="button" id="btnUserAdmin" class="btn btn-primary">Admin</button>
+          <button type="button" id="btnUserRegular" class="btn btn-primary">Regular</button>
+        </div>
+      </div>
+      <div id="userModalFooter" class="modal-footer">
+        <button class="btn" data-dismiss="modal" id="userModalCancelChanges" aria-hidden="true">Close</button>
+        <button class="btn btn-primary" id="userModalSaveChanges" data-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </body>
+  <script type="text/template" id="tmplAlert">
+    <div class="alert alert-danger">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <span id="lblGlobalAlertMessage"></span>
+    </div>
+  </script>
+  <script type="text/template" id="tmplHomePage">
+   <div class="row-fluid">
+     <div class="hero-unit">
+       <h1>&larr; &rarr;</h1>
+       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+         <div class="pull-right">
+           <button class="btn btn-success btn-large">Login</button>
+           <button class="btn btn-info btn-large">Sign Up</button>
+         </div>
+     </div>
+   </div>
+   <div class="row-fluid" style="margin-top: 100px; text-align: right;">
+     <div class="span12">
+       Powered by Bournvita and Backaches.
+     </div>
+   </div>
+  </script>
+  <script type="text/template" id="tmplCreateProject">
+    <h3 class="primary-color">Create Project</h3>
+    <hr>
+    <div class="create-project-alert-template hide">
+      <div class="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <span id="lblAlertMessage"></span>
+      </div>
+    </div>
+    <div class="alert-container"></div>
+    <form>
+      <fieldset>
+        <label for="txtCreateProjectProjectName">Project Name</label>
+        <input type="text" id="txtCreateProjectProjectName" placeholder="Enter project name here" class="span6">
+        <br><br>
+        <label for="txtCreateProjectProjectDescription">Description</label>
+        <textarea id="txtCreateProjectProjectDescription" rows="5" class="span6" placeholder="Describe the project in detail here"></textarea>
+        <hr>
+        <button type="submit" class="btn btn-primary" id="btnCreateProject">Create Project</button>
+      </fieldset>
+    </form>
+  </script>
+  <script type="text/template" id="tmplUserListing">
+    <h3 class="pull-left">Users</h3>
+    <div class="pull-right" style="margin-right: 10px; margin-top: 10px; padding-top: 5px;">
+      <div class="input-append">
+        <input class="input-xlarge" id="userListingSearch" placeholder="search for users..." type="text">
+        <span class="add-on"><i class="icon-search"></i> </span>
+      </div>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th width="5%"></th>
+          <th></th>
+          <th width="15%"></th>
+          <th width="7%"></th>
+          <th width="7%"></th>
+          <th width="7%"></th>
+          <th width="20%"></th>
+        </tr>
+      </thead>
+      <tbody id="userSummaryContainer"></tbody>
+    </table>
+  </script>
+  <script type="text/template" id="tmplUserSummary">
+    <td style="font-size: 16pt; text-align: center;">
+      <span style="vertical-align: sub;">
+        {{index}}
+        {{#isAdmin}}<span class="badge badge-pink">admin</span>{{/isAdmin}}
+      </span>
+    </td>
+    <td>
+      <img class="img-rounded pull-left" data-src="holder.js/64x64" alt="64x64" style="width: 48px; height: 48px;" src="{{profile_picture}}">
+      {{#me}}<span class="badge badge-success pull-left" style="margin-left: -15px; margin-top: -5px;">me</span>{{/me}}
+      <div class="pull-left" style="margin-left: 10px;">
+        <strong style="color: #C40A68">{{name}}</strong><br/>
+        <p class="muted"><small>{{description}}</small></p>
+      </div>
+    </td>
+    <td style="text-align: center"><abbr title="{{skill_description}}">{{skill_level}}</abbr></td>
+    <td style="text-align: center">{{bugs}}</td>
+    <td style="text-align: center">{{features}}</td>
+    <td style="text-align: center"><strong>{{total}}</td>
+    <td style="text-align: right;">
+      <button class="btn btn-small btn-primary btn-user-details">
+        <span class="icon-white icon-pencil"></span>
+      </button>
+      {{^me}}
+        <button class="btn btn-small btn-info">
+          <span class="icon-white icon-envelope"></span>
+        </button>
+        <button class="btn btn-small btn-danger btn-user-remove">
+          <span class="icon-white icon-trash"></span>
+        </button>
+      {{/me}}
+    </td>
+  </script>
+  <script type="text/template" id="tmplAcceptInvite">
+    <div id="acceptInviteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Accept Invitation</h3>
+      </div>
+      <div class="modal-body">
+        <p id="acceptInviteDetails">
+          Hi {{{receiver_name}}}, you have been invited to join {{{sender_organization}}} - (#{{organization_id}}) by {{{sender_name}}} - ({{{sender_email}}})!
+        </p>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Reject</a>
+        <a href="#" class="btn btn-primary">Accept</a>
+      </div>
+    </div>
+  </script>
+  <script type="text/template" id="tmplCurrentSprintListing">
+    <h3 class="pull-left">Current Sprints</h3>
+    <div class="pull-right" style="margin-right: 10px; margin-top: 10px; padding-top: 5px;">
+      <div class="input-append">
+        <input class="input-xlarge" id="currentSprintSearch" placeholder="search current sprints..." type="text">
+        <span class="add-on"><i class="icon-search"></i> </span>
+      </div>
+    </div>
+    <hr style="clear: both;"></hr>
+    <div class="span6">
+      <button class="btn btn-primary" id="btnAddSprint"><i class="icon-plus icon-white"></i> Add Sprint</button>
+    </div>
+    <div class="span12" style="clear: both;" id="currentSprintListingContainer">
+      <!-- Content to be rendered here -->
+    </div>
+    <div style="clear: both"></div>
+  </script>
+  <script type="text/template" id="tmplCurrentSprint">
+    <div class="span3">
+      <div class="current-sprint-content">
+        <table class="table table-bordered table-striped primary-color" style="margin-bottom: 0px;">
+          <thead>
+            <tr>
+              <th colspan="2" style="text-align: center;">{{name}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Time left</b></td>
+              <td>{{timeLeft}}</td>
+            </tr>
+            <tr>
+              <td><b>Tasks left</b></td>
+              <td>{{tasksLeft}}</td>
+            </tr>
+            <tr>
+              <td><b>Status</b></td>
+              <td><div class="status-block" style="background-color: {{statusColor}}"></div></td>
+            </tr>
+            <tr class="hide">
+              <td colspan="2" style="text-align: center;"><b>Stats</b></td>
+            </tr>
+            {{#categories1}}
+              <tr>
+                <td><b>{{name}}</b></td>
+                <td>{{value}}</div></td>
+              </tr>
+            {{/categories1}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </script>
+  <script type="text/template" id="tmplPastSprintSummary">
+    <td>
+      <span style="vertical-align: sub;">
+        {{ended}}
+      </span>
+    </td>
+    <td>
+      <div class="pull-left" style="margin-left: 10px;">
+        <strong style="color: #C40A68">{{name}}</strong><br/>
+        <p class="muted"><small>Customized description can be put here</small></p>
+      </div>
+    </td>
+    <td style="text-align: center">
+      {{#allDone}}<span class="badge badge-success">{{tasksTotal}} done</span>{{/allDone}}
+      {{^allDone}}<span class="badge badge-important">{{tasksLeft}} remain</span>{{/allDone}}
+    </td>
+    <td style="text-align: center">
+      <a href="javascript:void(0)" rel="popover" data-content="<p class='muted'>{{championFull}}</p>" data-original-title="{{champion}}" class="toggle-popover-user">{{champion}}</a>
+    </td>
+    <td style="text-align: right;">
+      <button class="btn btn-small btn-primary btn-sprint-details">
+        <span class="icon-white icon-pencil"></span>
+      </button>
+    </td>
+  </script>
+  <script type="text/template" id="tmplPastSprintListing">
+    <h3 class="pull-left">Past Sprints</h3>
+    <div class="pull-right" style="margin-right: 10px; margin-top: 10px; padding-top: 5px;">
+      <div class="input-append">
+        <input class="input-xlarge" id="pastSprintSearch" placeholder="search for sprints..." type="text">
+        <span class="add-on"><i class="icon-search"></i> </span>
+      </div>
+    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th style="text-align: center" width="12%">Ended</th>
+          <th style="text-align: center">Details</th>
+          <th style="text-align: center" width="15%">Status</th>
+          <th style="text-align: center" width="20%">Champion</th>
+          <th style="text-align: center" width="20%">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="pastSprintsContainer"></tbody>
+      <tbody>
+        <tr>
+          <td colspan="5" style="text-align: center;">
+            <div class="pagination pagination-large">
+              <ul>
+                <li><a href="javascript:void(0)">&larr;</a></li>
+                <li class="active"><a href="javascript:void(0)">1</a></li>
+                <li><a href="javascript:void(0)">2</a></li>
+                <li><a href="javascript:void(0)">3</a></li>
+                <li><a href="javascript:void(0)">4</a></li>
+                <li><a href="javascript:void(0)">5</a></li>
+                <li><a href="javascript:void(0)">6</a></li>
+                <li><a href="javascript:void(0)">7</a></li>
+                <li><a href="javascript:void(0)">&rarr;</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </script>
+  <script type="text/template" id="tmplSprintDetails">
+    <h3 class="primary-color"><span class="muted">Sprint - </span>{{name}}</h3>
+    <hr>
+    <div style="font-size: 11pt; margin-top: 10px;" class="pull-left">
+      <p class="1text-info">
+        {{{daysLeft}}} on <strong>{{endingDate}}</strong><br><br>
+        Completed <strong>{{tasksDone}}</strong> of <strong>{{tasksTotal}}</strong> tasks.
+      <p>
+    </div>
+    <div class="pull-right" style="margin-right: 20px;">
+      <div class="btn-group">
+        <button class="btn primary-color">
+          <span class="icon-list-alt"></span>
+          .xlsx
+        </button>
+        <button class="btn primary-color">
+          <span class="icon-th-list"></span>
+          .txt
+        </button>
+      </div>
+    </div>
+    <div style="clear: both"></div>
+    <hr>
+    {{#stages}}
+      <div>
+        <div class="span2">
+          <strong style="font-size: 12pt">{{name}}</strong>
+        </div>
+        <div class="span10" data-stageindex="{{index}}">
+          {{#tasks}}
+            <div rel="popover" class="well well-small task-summary" style="border-top-color: {{color}}" data-taskindex="{{index}}">
+              <span class="primary-color">{{name}}</span><br>
+              <small class="muted">{{descriptionSummary}}</small>
+            </div>
+          {{/tasks}}
+        </div>
+      </div>
+      <div style="clear: both; padding: 10px; border-top: 1px dashed #ddd;"></div>
+    {{/stages}}
+  </script>
+  <script type="text/template" id="tmplTaskPopoverContent">
+    <span style="font-size: small;">{{description}}</span>
+    {{^description}}<p class="muted">No description</p>{{/description}}
+    <br><br>
+    {{#numUsers}}
+      <span class="label label-info">{{numUsers}} users assigned</span>
+    {{/numUsers}}
+    {{^numUsers}}
+      <small class="muted">No users assigned yet</small>
+    {{/numUsers}}
+    <br>
+    {{#numComments}}
+      <span class="label label-success">{{numComments}} comments</span><br/>
+    {{/numComments}}
+    {{^numComments}}
+      <small class="muted">No comments yet</small>
+    {{/numComments}}
+    <div style="padding: 10px; margin-top: 10px; margin-bottom: 15px; border-top: 1px dashed rgba(0,0,0,0.2);">
+    <div class="pull-right">
+        <button class="btn sprint-details-button btn-primary btn-small" data-sprintid="{{sprintid}}" data-id="{{id}}">Show Details</button>
+      </div>
+    </div>
+    <div class="clear: both"></div>
+  </script>
+  <script type="text/template" id="tmplTaskPopoverTitle">
+    <span class="primary-color">
+      {{name}}
+    </span>
+  </script>
+  <script type="text/template" id="tmplAddTask">
+    <h3 class="primary-color"><span class="muted">Sprint - </span>{{name}}</h3>
+    <form>
+      <fieldset>
+        <legend>Create Task</legend>
+        <label for="txtCreateTaskTaskName">Task Name</label>
+        <input type="text" id="txtCreateTaskTaskName" placeholder="Enter 3 - 4 words">
+        <label for="txtCreateTaskTaskDescription">Description</label>
+        <textarea id="txtCreateTaskTaskDescription" rows="5" placeholder="Describe the task in detail here"></textarea>
+        <label>Priority</label>
+        <select>
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+        </select>
+        <hr>
+        <button type="submit" class="btn">Cancel</button>
+        <button type="submit" class="btn btn-primary">Create Task</button>
+      </fieldset>
+    </form>
+  </script>
+  <script type="text/template" id="tmplTaskDetails">
+    {{#sprint}}
+      <h3 class="primary-color pull-left"><span class="muted">Sprint - </span>{{name}}</h3>
+    {{/sprint}}
+    <div class="pull-right span3">
+      <div class="btn-group">
+        <button class="btn btn-danger dropdown-toggle btn-priority" data-toggle="dropdown" href="javascript: void(0)">
+          <span class="button-text">High Priority</span>
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="javascript:void(0)" id="lnkHighPriority">High Priority</a></li>
+          <li><a href="javascript:void(0)" id="lnkMediumPriority">Medium Priority</a></li>
+          <li><a href="javascript:void(0)" id="lnkLowPriority">Low Priority</a></li>
+        </ul>
+      </div>
+    </div>
+    {{#task}}
+      <div style="margin-top: 10px; clear: both;" class="pull-left span9">
+        <h4 class="primary-color">{{name}}</h4>
+        <p>{{description}}</p>
+      </div>
+      <div style="clear: both;"></div>
+      <hr style="clear: both;">
+      <h4>Assigned To</h4>
+      <div class="span11" style="clear: both; padding: 10px;">
+        <button class="btn btn-info"><i class="icon-plus icon-white"></i> Add User</button>
+        {{#users}}
+          <div class="btn-group" style="margin: 5px;">
+            <button class="btn 1btn-success">{{name}}</button>
+            <button class="btn 1btn-danger" data-toggle="dropdown">
+              <span class="icon-remove 1icon-white"></span>
+            </button>
+          </div>
+        {{/users}}
+      </div>
+      <hr style="clear: both;">
+      <h4>Images</h4>
+      <div class="thumbnail-container">
+        <ul class="thumbnails">
+          {{#images}}
+            <li class="span4 task-thumbnail">
+              <a href="javascript: void(0)" class="thumbnail">
+                <img data-src="holder.js/300x200" alt="300x200" style="width: 300px; height: 200px; float: left;" src="data:image/png;base64,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">
+                <div class="thumbnail-content-details">
+                  <button class="btn btn-danger btn-small" style="float: left; margin-left: 2%;"><i class="icon-remove icon-white"></i> </button>
+                  <button class="btn btn-primary btn-small" style="float: right; margin-right: 2%;">View</button>
+                  <div style="clear: both"></div>
+                </div>
+                <div style="clear: both"></div>
+              </a>
+            </li>
+          {{/images}}
+        </ul>
+      </div>
+      <hr>
+      <h4 style="margin-bottom: 30px;">Discussion</h4>
+      {{#comments}}
+        <div class="media" style="padding: 7px; cursor: pointer;">
+          <a class="pull-left" href="javascript: void(0)">
+            <img class="media-object img-polaroid" data-src="holder.js/64x64" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACDUlEQVR4Xu2Yz6/BQBDHpxoEcfTjVBVx4yjEv+/EQdwa14pTE04OBO+92WSavqoXOuFp+u1JY3d29rvfmQ9r7Xa7L8rxY0EAOAAlgB6Q4x5IaIKgACgACoACoECOFQAGgUFgEBgEBnMMAfwZAgaBQWAQGAQGgcEcK6DG4Pl8ptlsRpfLxcjYarVoOBz+knSz2dB6vU78Lkn7V8S8d8YqAa7XK83ncyoUCjQej2m5XNIPVmkwGFC73TZrypjD4fCQAK+I+ZfBVQLwZlerFXU6Her1eonreJ5HQRAQn2qj0TDukHm1Ws0Ix2O2260RrlQqpYqZtopVAoi1y+UyHY9Hk0O32w3FkI06jkO+74cC8Dh2y36/p8lkQovFgqrVqhFDEzONCCoB5OSk7qMl0Gw2w/Lo9/vmVMUBnGi0zi3Loul0SpVKJXRDmphvF0BOS049+n46nW5sHRVAXMAuiTZObcxnRVA5IN4DJHnXdU3dc+OLP/V63Vhd5haLRVM+0jg1MZ/dPI9XCZDUsbmuxc6SkGxKHCDzGJ2j0cj0A/7Mwti2fUOWR2Km2bxagHgt83sUgfcEkN4RLx0phfjvgEdi/psAaRf+lHmqEviUTWjygAC4EcKNEG6EcCOk6aJZnwsKgAKgACgACmS9k2vyBwVAAVAAFAAFNF0063NBAVAAFAAFQIGsd3JN/qBA3inwDTUHcp+19ttaAAAAAElFTkSuQmCC">
+          </a>
+          <div class="media-body">
+            <div class="comment-delete">
+              <button class="btn btn-mini btn-danger"><i class="icon-remove icon-white"></i> </button>
+            </div>
+            <h5 class="media-heading">{{username}}</h5>
+            <small class="muted">{{dateDisplay}}</small><br>
+            <small>{{description}}</small>
+          </div>
+        </div>
+      {{/comments}}
+    {{/task}}
+  </script>
+  <script type="text/template" id="tmplEditProfile">
+    <h3 class="primary-color"><span class="muted">Profile - </span>{{firstname}} {{lastname}}</h3>
+    <form>
+      <fieldset>
+        <label for="txtUserDescription">Description</label>
+        <textarea id="txtUserDescription" rows="5" placeholder="Describe yourself in 15-20 words, or enter a catchphrase!">{{description}}</textarea>
+        <hr>
+        <button type="submit" class="btn">Cancel</button>
+        <button type="submit" class="btn btn-primary" data-loading-text="Updating profile...">Update</button>
+      </fieldset>
+    </form>
+  </script>
+  <script type="text/template" id="tmplAdminister">
+    <h3 class="primary-color">{{name}}<span class="muted"> Administration Console</span></h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th width="80%"></th>
+          <th width="*"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <h5 class="primary-color">Invite Users</h5>
+            <small class="muted">Send an email to a user you want to invite. The email will contain a link which will signup the user (if required) and add him to the {{name}} project.</small>
+          </td>
+          <td class="table-cell-control-container">
+            <button id="btnSendInvite" class="btn btn-primary"><i class="icon-plus icon-white"></i> Invite</button>
+          </td>
+          </tr>
+          <tr>
+            <td>
+              <h5 class="primary-color">Leave Project</h5>
+              <small class="muted">Leave the project: {{name}}. All your contribution in terms of sprints, cards, files and comments stay the way they are. You can join back at a later date by getting an active member to send you an invite and can pick up exactly where you left off.</small>
+            </td>
+            <td class="table-cell-control-container">
+              <button id="btnQuitProject" class="btn btn-danger"><i class="icon-minus icon-white"></i> Quit</button>
+            </td>
+            </tr>
+          <tr>
+          <td>
+            <h5 class="primary-color">Delete project</h5>
+            <small class="muted">Delete the project: {{name}}. All associated data (sprints, tasks, files, comments) will be deleted. User accounts will stay intact and will not be affected. This will send out an email to all members informing them of the action. </small>
+            <small class="text-error"><strong>Warning! </strong> This action cannot be undone.</small>
+          </td>
+          <td class="table-cell-control-container">
+            <button id="btnDeleteProject" class="btn btn-danger"><i class="icon-trash icon-white"></i> Delete</button>
+          </td>
+      </tbody>
+    </table>
+  </script>
+  <script type="text/template" id="tmplMessagesListing">
+    <h3 class="primary-color">Messages</h3>
+    <hr>
+    <table class="table table-striped table-bordered table-condensed">
+      <thead>
+        <tr>
+          <th width="5%">#</th>
+          <th width="55%">Subject</th>
+          <th width="20%">Sent</th>
+          <th width="10%">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tblMessagesListing">
+        <!-- Rendered content here -->
+      </tbody>
+    </table>
+  </script>
+  <script type="text/template" id="tmplMessageListingRow">
+    <tr class="success">
+      <td>1.</td>
+      <td>Invite to join <strong>Secret Santa Committee</strong></td>
+      <td>yesterday</td>
+      <td>
+        <button class="pull-left btn btn-small btn-success open-message-details" data-messageid="14812093883744772"><i class="icon-eye-open"></i> </button>
+        <button class="pull-right btn btn-small btn-danger"><i class="icon-trash"></i> </button>
+      </td>
+    </tr>
+  </script>
+  <script type="text/template" id="tmplInviteDetails">
+    {{^loggedIn}}
+      <h3 class="primary-color">&larr; Shapeless &rarr;</h3>
+      <hr>
+      <p>
+        Hi! <strong>{{sender}}</strong> has asked you to become a member of the project <strong>{{organizationname}}</strong>.
+      </p>
+      <p>
+        Either you have not logged in yet or you have not created an account with us yet. To log in and/or sign up (yes, they are the same thing for us!) you can click on the button below this text or click on the button provided on the top right of the page. It takes one click. Seriously.
+      </p>
+      <p>
+        To learn more, go to <a href="http://stage-taarago.gossamer.com/index.html">our website</a>.
+      </p><br>
+      <button class="btn btn-primary btn-signup-invite">Log in via facebook</button>
+      <br><br><hr><br>
+      <small class="muted">
+        If you believe you have received this invitation/email in error, you can safely ignore it or you may get in touch with us at <a href="mailto:support@example.com">support@example.com</a>.
+      </small>
+    {{/loggedIn}}
+    {{#canSee}}
+      <h3 class="primary-color"><span class="muted">Invitation - #</span>{{__id}}</h3>
+      <hr>
+      <div class="span10">
+        <p>You have been invited to join 
+        <strong><a href="javascript: void(0)"  rel="popover" data-content="Fetching data..." data-original-title="{{organizationname}}">{{organizationname}}</a></strong> by 
+        <strong><a href="javascript: void(0)"  rel="popover" data-content="Fetching data..." data-original-title="{{sender}}">{{sender}}</a></strong> on 
+        <strong>{{invitedate}}</strong>.</p>
+        <div class="pull-left">
+          <button style="margin-top: 20px;" class="btn btn-danger btn-delete-invite"><i class="icon-trash icon-white"></i> Delete</button>
+        </div>
+        <div class="pull-right">
+          <button style="margin-top: 20px; margin-left: 100px;" class="btn btn-primary btn-accept-invite"><i class="icon-ok icon-white"></i> Accept</button>
+        </div>
+      </div>
+      <div style="clear: both; height: 10px;"></div>
+    {{/canSee}}
+    {{#noInvite}}
+      <h3 class="muted">Error fetching invitation</h3>
+      <hr>
+      <div class="span10">
+        <p>
+        There was an retrieving the specified invitation. Most probably, the invitation has already been accepted or it has been deleted.
+        </p><p>
+        Please check the url in the browser to make sure that it matches the url sent via the invitation email. You may also want to contact
+        the person who had sent you the invite.
+        </p><p>
+        In case you think this is an error on our side, please do not hesitate to call us at 555-5555 or email us at <a href="mailto:support@example.com">support@example.com</a>.
+      </div>
+    {{/noInvite}}
+  </script>
+  <script type="text/template" id="tmplCreateSprint">
+    <h3 class="primary-color">Create Sprint</h3>
+    <hr>
+    <div class="create-project-alert-template hide">
+      <div class="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <span id="lblAlertMessage"></span>
+      </div>
+    </div>
+    <form class="form-horizontal">
+      <div class="control-group">
+        <label class="control-label" for="txtSprintTitle">Title</label>
+        <div class="controls">
+          <input type="text" class="span5" id="txtSprintTitle" placeholder="Sprint title">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="txtSprintDescription">Description</label>
+        <div class="controls">
+          <textarea rows="4" class="span5" id="txtSprintDescription" placeholder="Description"></textarea>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">End Date</label>
+        <div class="controls">
+          <div class="input-append date" id="dp3">
+            <input class="span10" size="16" type="text" id="txtSprintEndDate">
+            <span class="add-on"><i class="icon-th"></i></span>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="control-group">
+        <div class="controls">
+          <label class="checkbox">
+          </label>
+          <button type="submit" class="btn btn-primary" id="btnCreateSprint">Create Sprint</button>
+        </div>
+      </div>
+    </form>
+  </script>
+  <script type="text/javascript">
+    FB.init({
+      appId      : '418768991484276', // App ID from the App Dashboard
+      status     : true, // check the login status upon init?
+      cookie     : false, // set sessions cookies to allow your server to access the session?
+      xfbml      : true  // parse XFBML tags on this page?
+    });
+  </script>
+</html>
