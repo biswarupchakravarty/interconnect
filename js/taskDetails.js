@@ -75,7 +75,6 @@
 				task.save(onSuccess, onError);
 			}, onError);
 		};
-
 	})();
 
 
@@ -191,23 +190,23 @@
 			var comments = new Appacitive.ArticleCollection({ schema:'comment'});
 			var comment = comments.createNewArticle();
 			comment.set('comment',$('#txtComment').val());
+			var that=this;
 			comment.save(function() {
     			console.log("got it");
+    			that.createComment(comment.get("__id"),that.model.task.__id);
 				}, function() {
     			console.log("didnt get it");
 			});
 		},
 
-	    createComment : function(onSuccess, onError) {
-		var userId = window.user.__id;
-		var projectId = window.invite.organizationid;
+	    createComment : function(commentId, taskId) {
 		var connectOptions = {
 	        __endpointa: {
 	            articleid: taskId,
 	            label: 'task'
 	        },
-	        __endpointb: {
-	            articleid: window.comment.__id,
+	        __endpointb :{
+	            articleid: commentId,
 	            label: 'comment'
 	        }
 	    };
@@ -215,13 +214,10 @@
 	    var connection = cC.createNewConnection(connectOptions);
 
 	    connection.save(function () {
-	        if (onSuccess && typeof onSuccess == 'function')
-	        	onSuccess();
+	        alert.show("Wow connection made successfully!!","success");
 	    }, function () {
-	        (onError || function() {
-    	    	window.alert.show('Oops, something went wrong either while trying to connect this comment to the task!!');
+    	    	alert.show('Oops, something went wrong either while trying to connect this comment to the task!!');
 	        });
-	    	});
 		},
 
 		render: function() {
