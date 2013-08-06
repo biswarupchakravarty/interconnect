@@ -78,27 +78,6 @@
 
 	})();
 
-	var TaskDetailView = Backbone.View.extend({
-		events: {
-			'click #AddComment': 'addComment'
-			},
-
-		addComment: function() {
-			var comments = new Appacitive.ArticleCollection({ schema:'comment'});
-			var comment = comments.createNewArticle();
-			comments.set('comment',$('#txtComment').val());
-			comments.save(function() {
-    			alert('saved successfully!');
-				}, function() {
-    			alert('error while saving!');
-			});
-		},
-
-		render: function() {
-			return this;
-		}
-
-	});
 
 
 	var _lipsum = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'.split(' ');
@@ -202,6 +181,47 @@
 
 		initialize: function() {
 			this.render();
+		},
+
+		events: {
+			'click #AddComment': 'addComment'
+			},
+
+		addComment: function() {
+			var comments = new Appacitive.ArticleCollection({ schema:'comment'});
+			var comment = comments.createNewArticle();
+			comment.set('comment',$('#txtComment').val());
+			comment.save(function() {
+    			console.log("got it");
+				}, function() {
+    			console.log("didnt get it");
+			});
+		},
+
+	    createComment : function(onSuccess, onError) {
+		var userId = window.user.__id;
+		var projectId = window.invite.organizationid;
+		var connectOptions = {
+	        __endpointa: {
+	            articleid: taskId,
+	            label: 'task'
+	        },
+	        __endpointb: {
+	            articleid: window.comment.__id,
+	            label: 'comment'
+	        }
+	    };
+	    var cC = new Appacitive.ConnectionCollection({ relation: 'task_comment' });
+	    var connection = cC.createNewConnection(connectOptions);
+
+	    connection.save(function () {
+	        if (onSuccess && typeof onSuccess == 'function')
+	        	onSuccess();
+	    }, function () {
+	        (onError || function() {
+    	    	window.alert.show('Oops, something went wrong either while trying to connect this comment to the task!!');
+	        });
+	    	});
 		},
 
 		render: function() {
@@ -309,6 +329,7 @@
 								};
 								console.dir(model);
 								var taskDetailView = new TaskDetailView(model);
+								taskDetailView.render();
 								window.loader.hide();
 							}, onError);
 						}, onError);
