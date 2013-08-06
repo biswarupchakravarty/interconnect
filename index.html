@@ -612,8 +612,9 @@
       </div>
       <hr>
       <h4 style="margin-bottom: 30px;">Discussion</h4>
-      <div class="input-group span6">
-        <input type="text" style="width:100%;" id="AddComment" placeholder="Add Comments Here">
+      <div class="input-group span6 input-append">
+        <input type="text" class="span2" id="txtComment" style="width:100%;" data-taskid="{{taskid}}" placeholder="Add Comments Here">
+        <button class="btn" id="AddComment" type="button">Add</button>
       </div>
       {{#comments}}
         <div class="media" style="padding: 7px; cursor: pointer;">

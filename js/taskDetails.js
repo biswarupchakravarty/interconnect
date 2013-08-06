@@ -78,6 +78,29 @@
 
 	})();
 
+	var TaskDetailView = Backbone.View.extend({
+		events: {
+			'click #AddComment': 'addComment'
+			},
+
+		addComment: function() {
+			var comments = new Appacitive.ArticleCollection({ schema:'comment'});
+			var comment = comments.createNewArticle();
+			comments.set('comment',$('#txtComment').val());
+			comments.save(function() {
+    			alert('saved successfully!');
+				}, function() {
+    			alert('error while saving!');
+			});
+		},
+
+		render: function() {
+			return this;
+		}
+
+	});
+
+
 	var _lipsum = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'.split(' ');
 	var colors = ['rgba(0, 100, 0, 0.6)', 'rgba(255, 140, 0, 0.6)', 'rgba(138, 0, 0, 0.6)'];
 
