@@ -122,7 +122,7 @@
 
 			$('#txtSprintTitle').focus();
 			var today = new Date(), startDate = new Date(new Date().setDate(today.getDate() + 1));
-			$('#dp3').datepicker({
+			$('.date').datepicker({
 				format: 'yyyy/mm/dd',
 				startDate: startDate,
 				autoclose: true

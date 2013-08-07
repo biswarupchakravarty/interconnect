@@ -121,6 +121,7 @@
 			this.render();
 		},
 
+
 		sprintSummaryViews: [],
 
 		sprintSearch: function(e) {
