@@ -172,6 +172,13 @@
 			$('#btnAddSprint').unbind('click').click(function() {
 				Backbone.history.navigate('sprints/create', { trigger: true });
 			});
+			
+			$('.date').datepicker({
+				format: 'yyyy/mm/dd',
+				//startDate: startDate,
+				autoclose: true
+			});
+
 			return this;
 		},
 
